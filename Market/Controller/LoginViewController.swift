@@ -112,7 +112,7 @@ class LoginViewController: UIViewController {
             if error == nil {
                 if isEmailVerified{
                     self.dismissView()
-                    print("Email is Verified")
+                    print("User is Verified")
                 }else {
                     self.hud.textLabel.text = "Please verify your email"
                     self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
