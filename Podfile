@@ -17,6 +17,8 @@ target 'Market' do
 	pod 'NVActivityIndicatorView/AppExtension'
 	pod 'JGProgressHUD'
 	pod 'PayPal-iOS-SDK'
+    	pod 'BraintreeDropIn'
+    	pod 'Braintree'
 	
 
 end

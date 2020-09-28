@@ -30,7 +30,18 @@ class EditProfileViewController: UIViewController {
     
     @IBAction func logOutBtnPressed(_ sender: Any) {
         
-        
+        MUser.logOutCurrentUser { (Error) in
+            
+            if Error == nil {
+                print("logged out")
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                self.hud.textLabel.text = Error?.localizedDescription
+                               self.hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                               self.hud.show(in: self.view)
+                               self.hud.dismiss(afterDelay: 2.0)
+            }
+        }
         
     }
     @IBAction func saveBtnPressed(_ sender: Any) {

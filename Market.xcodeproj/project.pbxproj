@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		42149FA324936E440031AD33 /* HiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42149FA224936E440031AD33 /* HiveLayout.swift */; };
+		42FBFD00252062D200E7B434 /* PurchasedItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */; };
 		8003CB202407E51D00F7AD3F /* ItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003CB1F2407E51D00F7AD3F /* ItemCellView.swift */; };
 		8080386B23E983FA00D38565 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8080386A23E983FA00D38565 /* AppDelegate.swift */; };
 		8080386D23E983FA00D38565 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8080386C23E983FA00D38565 /* SceneDelegate.swift */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		1C574ABE3B5394BBA43AFC35 /* Pods-Market.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Market.debug.xcconfig"; path = "Target Support Files/Pods-Market/Pods-Market.debug.xcconfig"; sourceTree = "<group>"; };
 		42149FA224936E440031AD33 /* HiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiveLayout.swift; sourceTree = "<group>"; };
+		42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItemsTableViewController.swift; sourceTree = "<group>"; };
+		42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Market-Bridging-Header.h"; sourceTree = "<group>"; };
 		8003CB1F2407E51D00F7AD3F /* ItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellView.swift; sourceTree = "<group>"; };
 		8080386723E983FA00D38565 /* Market.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Market.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080386A23E983FA00D38565 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				80FCF4CB2442122D002666AE /* ProfileTableViewController.swift */,
 				80E6CD11244C96DF00525BFB /* FinishRegistrationViewController.swift */,
 				80E6CD13244D11E200525BFB /* EditProfileViewController.swift */,
+				42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */,
+				42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				TargetAttributes = {
 					8080386623E983FA00D38565 = {
 						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1170;
 					};
 				};
 			};
@@ -351,6 +357,7 @@
 				8080388923E9DEAC00D38565 /* Category.swift in Sources */,
 				8080388C23EC1A9300D38565 /* Constants.swift in Sources */,
 				8080389C23FE7F9900D38565 /* ItemTableViewCell.swift in Sources */,
+				42FBFD00252062D200E7B434 /* PurchasedItemsTableViewController.swift in Sources */,
 				80E6CD14244D11E200525BFB /* EditProfileViewController.swift in Sources */,
 				8080389623F97CD900D38565 /* AddItemViewController.swift in Sources */,
 			);
@@ -497,8 +504,9 @@
 			baseConfigurationReference = 1C574ABE3B5394BBA43AFC35 /* Pods-Market.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HCM9FP93B3;
+				DEVELOPMENT_TEAM = L6WXF3Y5W6;
 				INFOPLIST_FILE = Market/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -506,6 +514,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.omikhan..Market;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Market/Controller/Market-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -516,8 +526,9 @@
 			baseConfigurationReference = 8862D11BEB7437CE3ADDA063 /* Pods-Market.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HCM9FP93B3;
+				DEVELOPMENT_TEAM = L6WXF3Y5W6;
 				INFOPLIST_FILE = Market/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -525,6 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.omikhan..Market;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Market/Controller/Market-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

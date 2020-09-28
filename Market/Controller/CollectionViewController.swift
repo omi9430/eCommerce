@@ -22,6 +22,7 @@ class CollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
+        print(UserDefaults.standard.dictionary(forKey: kCURRENTUSER))
         //createCategorySet()
         //  self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -36,6 +37,7 @@ class CollectionViewController: UICollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print(UserDefaults.standard.dictionary(forKey: kCURRENTUSER))
        // createCategorySet()
       //  loadCategories()
     }
