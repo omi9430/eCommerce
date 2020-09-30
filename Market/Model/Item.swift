@@ -102,3 +102,21 @@ func downloadItems(_ withIds : [String], completion: @escaping (_ itemArray: [It
         completion(itemArray)
     }
 }
+
+//MARK: Algolia Funcs
+
+func saveItemToAlgolia(item: Item){
+    
+    let index = AlgoliaService.shared.index
+    let itemToSave = itemDictionaryFrom(item) as! [String : Any]
+    
+    index.addObject(itemToSave, withID: item.id, requestOptions: nil) { (result, error) in
+        
+        if error != nil {
+            print("Cannot save to algolia ",error?.localizedDescription)
+        }else{
+            print("Added to algolia successfully")
+        }
+    }
+    
+}

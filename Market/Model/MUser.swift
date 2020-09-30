@@ -34,7 +34,11 @@ class MUser {
     
     init(_dictionary : NSDictionary) {
         
-            objectId = _dictionary[kOBJECTID] as! String
+        if let  objectID = _dictionary[kOBJECTID]{
+            objectId = objectID as! String
+        }else{
+            objectId = MUser.currentID()
+        }
         
         if let mail = _dictionary[kEMAIL]{
             email = mail as! String

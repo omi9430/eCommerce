@@ -11,6 +11,7 @@ import JGProgressHUD
 import Braintree
 import BraintreeDropIn
 
+
 class BasketViewController: UIViewController {
 
     
@@ -132,9 +133,12 @@ class BasketViewController: UIViewController {
     private func deleteItemFromBasket(_ itemId : String){
         
         for i in 0..<basket!.itemIds.count {
-            
+           
+            print(i)
+            print(basket!.itemIds[i])
             if itemId == basket!.itemIds[i]{
                 basket?.itemIds.remove(at: i)
+                return
             }
         }
     }
@@ -254,6 +258,10 @@ extension BasketViewController : UITableViewDelegate,UITableViewDataSource{
         return allItems.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
@@ -280,9 +288,10 @@ extension BasketViewController : UITableViewDelegate,UITableViewDataSource{
             let itemToDelete = allItems[indexPath.row]
             
             allItems.remove(at: indexPath.row)
+            deleteItemFromBasket(itemToDelete.id)
             tableView.reloadData()
             
-            deleteItemFromBasket(itemToDelete.id)
+           
             
             updateBasketInFireStore(basket!, withValues: [KITEMIDS : basket!.itemIds]) { (error) in
             
@@ -335,3 +344,5 @@ extension BasketViewController: BTViewControllerPresentingDelegate,BTAppSwitchDe
     }
 
 }
+
+

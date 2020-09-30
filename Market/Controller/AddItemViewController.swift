@@ -102,6 +102,7 @@ class AddItemViewController: UIViewController {
                 item.imageLinks = imageLinks
                 
                 saveItemToFireStore(item)
+                saveItemToAlgolia(item: item)
             }
         }else{
             saveItemToFireStore(item)
@@ -123,7 +124,7 @@ class AddItemViewController: UIViewController {
         Config.tabsToShow = [.cameraTab,.imageTab]
         Config.Camera.imageLimit = 6
         
-               present(gallery, animated: true, completion: nil)
+        present(gallery, animated: true, completion: nil)
     }
     
     //Mark: Activity Indicator
@@ -150,6 +151,7 @@ extension AddItemViewController: GalleryControllerDelegate {
                 self.imageArray = resolveImages
             }
         }
+      controller.dismiss(animated: true, completion: nil)
     }
     
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {

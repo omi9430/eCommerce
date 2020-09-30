@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '9.0'
+ platform :ios, '11.0'
 
 target 'Market' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -19,6 +19,7 @@ target 'Market' do
 	pod 'PayPal-iOS-SDK'
     	pod 'BraintreeDropIn'
     	pod 'Braintree'
+	pod 'Frames', '~> 3.0'
 	
 
 end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		42149FA324936E440031AD33 /* HiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42149FA224936E440031AD33 /* HiveLayout.swift */; };
 		42FBFD00252062D200E7B434 /* PurchasedItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */; };
+		42FBFD042523239300E7B434 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFD032523239300E7B434 /* SearchViewController.swift */; };
+		42FBFD0625233E3100E7B434 /* AlogoliaServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFD0525233E3100E7B434 /* AlogoliaServices.swift */; };
 		8003CB202407E51D00F7AD3F /* ItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003CB1F2407E51D00F7AD3F /* ItemCellView.swift */; };
 		8080386B23E983FA00D38565 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8080386A23E983FA00D38565 /* AppDelegate.swift */; };
 		8080386D23E983FA00D38565 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8080386C23E983FA00D38565 /* SceneDelegate.swift */; };
@@ -46,6 +48,8 @@
 		42149FA224936E440031AD33 /* HiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiveLayout.swift; sourceTree = "<group>"; };
 		42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItemsTableViewController.swift; sourceTree = "<group>"; };
 		42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Market-Bridging-Header.h"; sourceTree = "<group>"; };
+		42FBFD032523239300E7B434 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		42FBFD0525233E3100E7B434 /* AlogoliaServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlogoliaServices.swift; sourceTree = "<group>"; };
 		8003CB1F2407E51D00F7AD3F /* ItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellView.swift; sourceTree = "<group>"; };
 		8080386723E983FA00D38565 /* Market.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Market.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080386A23E983FA00D38565 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				80E6CD13244D11E200525BFB /* EditProfileViewController.swift */,
 				42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */,
 				42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */,
+				42FBFD032523239300E7B434 /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				8080389123F41D9700D38565 /* Item.swift */,
 				80BA2593242E7DEE007380FA /* Basket.swift */,
 				80BA2599243106B5007380FA /* MUser.swift */,
+				42FBFD0525233E3100E7B434 /* AlogoliaServices.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,8 +361,10 @@
 				8080389A23FD32A500D38565 /* Downloader.swift in Sources */,
 				8080386D23E983FA00D38565 /* SceneDelegate.swift in Sources */,
 				8080388923E9DEAC00D38565 /* Category.swift in Sources */,
+				42FBFD042523239300E7B434 /* SearchViewController.swift in Sources */,
 				8080388C23EC1A9300D38565 /* Constants.swift in Sources */,
 				8080389C23FE7F9900D38565 /* ItemTableViewCell.swift in Sources */,
+				42FBFD0625233E3100E7B434 /* AlogoliaServices.swift in Sources */,
 				42FBFD00252062D200E7B434 /* PurchasedItemsTableViewController.swift in Sources */,
 				80E6CD14244D11E200525BFB /* EditProfileViewController.swift in Sources */,
 				8080389623F97CD900D38565 /* AddItemViewController.swift in Sources */,
