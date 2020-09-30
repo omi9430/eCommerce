@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import EmptyDataSet_Swift
 class PurchasedItemsTableViewController: UITableViewController {
 
     //MARK: Vars
@@ -15,7 +15,9 @@ class PurchasedItemsTableViewController: UITableViewController {
     var itemArray = [Item]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
     }
     
@@ -43,4 +45,20 @@ class PurchasedItemsTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
+}
+
+extension PurchasedItemsTableViewController: EmptyDataSetSource,EmptyDataSetDelegate{
+
+func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+    
+    return NSAttributedString(string: "You haven't bought anything.")
+}
+
+func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+    return NSAttributedString(string: "Start shopping now..")
+}
+
+func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+    return UIImage(named: "emptyData")
+}
 }

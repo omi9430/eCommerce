@@ -14,13 +14,13 @@ import NVActivityIndicatorView
 class AddItemViewController: UIViewController {
     
     
-    //Mark: IBOutlets
+    //MARK: IBOutlets
 
     @IBOutlet weak var titleTxtField: UITextField!
     @IBOutlet weak var priceTxtField: UITextField!
     @IBOutlet weak var descriptionTxtView: UITextView!
     
-    //Mark: Vars
+    //MARK: Vars
     var category : Category!
     var imageArray : [UIImage?] = []
     var gallery : GalleryController!
@@ -41,7 +41,7 @@ class AddItemViewController: UIViewController {
         
         activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width / 2 - 30, y: self.view.frame.height / 2 - 30, width: 60, height: 60), type: .ballPulse, color: #colorLiteral(red: 1.0, green: 0.50, blue: 0.95, alpha: 1.0), padding: nil)
     }
-    //Mark: IBActions
+    //MARK: IBActions
     @IBAction func doneBtnPressed(_ sender: Any) {
         
         dissmissKeyBoard()
@@ -105,18 +105,19 @@ class AddItemViewController: UIViewController {
                 saveItemToAlgolia(item: item)
             }
         }else{
+            saveItemToAlgolia(item: item)
             saveItemToFireStore(item)
             popUpView()
         }
     }
     
-    //Mark: Helper function
+    //MARK: Helper function
     
     private func popUpView() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    //Mark: Show Gallery
+    //MARK: Show Gallery
     
     func showGallery() {
         gallery = GalleryController()
@@ -127,7 +128,7 @@ class AddItemViewController: UIViewController {
         present(gallery, animated: true, completion: nil)
     }
     
-    //Mark: Activity Indicator
+    //MARK: Activity Indicator
     
     private func showActivityIndicator() {
         if activityIndicator != nil {

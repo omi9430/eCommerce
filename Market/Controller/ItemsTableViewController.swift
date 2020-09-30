@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EmptyDataSet_Swift
 
 class ItemsTableViewController: UITableViewController {
     
@@ -19,6 +20,8 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItems()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         self.navigationItem.title = category?.name
         self.view.backgroundColor = UIColor.white
         
@@ -85,4 +88,21 @@ class ItemsTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
+}
+
+extension ItemsTableViewController: EmptyDataSetSource,EmptyDataSetDelegate{
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        
+        return NSAttributedString(string: "No items to display")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        return NSAttributedString(string: "Please check back later")
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "emptyData")
+    }
+    
 }

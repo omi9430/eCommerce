@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import EmptyDataSet_Swift
 
 class SearchViewController: UIViewController {
 
@@ -27,6 +28,8 @@ class SearchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         tableView.tableFooterView = UIView()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
@@ -45,6 +48,29 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchBtnPressed(_ sender: Any) {
+        if searchTextField.text != nil {
+            // when the user click on search button we will hide the search fields and show results
+            searchInFirebase(forname: searchTextField.text!)
+            emptyTxtField()
+            showSearchField()
+            dismissKeyboard()
+        }
+    }
+//    MARK: Search Database
+    
+    func searchInFirebase(forname: String){
+        showLoadingIndicator()
+        
+        searchAlgolia(searchString: forname) { (itemIds) in
+            
+            downloadItems(itemIds) { (allItems) in
+                
+                self.searchResult = allItems
+                self.tableView.reloadData()
+                
+                self.hideLoadingIndicator()
+            }
+        }
     }
     
 //    MARK: Helper Functions
@@ -112,8 +138,11 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource{
         return searchResult.count
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
+        print(searchResult[indexPath.row].name)
         cell.generateCell(searchResult[indexPath.row])
         return cell
     }
@@ -124,5 +153,36 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         showItem(withItem: searchResult[indexPath.row])
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
     
+}
+
+extension SearchViewController: EmptyDataSetSource,EmptyDataSetDelegate{
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        
+        return NSAttributedString(string: "No items to display")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        return NSAttributedString(string: "Please check back later")
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "emptyData")
+    }
+    
+    func buttonImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> UIImage? {
+        return UIImage(named: "search")
+    }
+    
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> NSAttributedString? {
+        return NSAttributedString(string: "Start searching...")
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView, didTapButton button: UIButton) {
+        showSearchField()
+    }
 }
