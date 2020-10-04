@@ -59,7 +59,7 @@ class CollectionViewController: UICollectionViewController {
         
         cell.generateCell(categoryArray[indexPath.row])
         // Configure the cell
-        
+     
         return cell
     }
     

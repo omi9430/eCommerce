@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Braintree
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         initializePayPal()
+        initializeStripe()
         BTAppSwitch.setReturnURLScheme("com.omikhan..Market.payments")
         return true
     }
@@ -37,11 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-//MARK : Paypal
+//MARK: Paypal
     
     func initializePayPal(){
         PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction : "AduxrEMYMcL0_yOt3QQPkUO8qhBqygNus-aO8GjX9wwyGeApY6xQnH4eoslgEApv2T8wWO_w4cVHJoP_", PayPalEnvironmentSandbox : "sb-4otsd3317803@business.example.com"])
     }
 
+    //MARK: Stripe
+    
+    func initializeStripe(){
+        Stripe.setDefaultPublishableKey(Constants.pubclishablekey)
+        StripeClient.sharedClient.baseURLString = Constants.baseURLString
+    }
 }
 

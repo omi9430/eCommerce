@@ -10,6 +10,7 @@ import UIKit
 import JGProgressHUD
 import Braintree
 import BraintreeDropIn
+import Stripe
 
 
 class BasketViewController: UIViewController {
@@ -29,6 +30,7 @@ class BasketViewController: UIViewController {
     var basket: Basket?
     var allItems : [Item] = []
     var purchasedItemIds : [String] = []
+    var totalCost = 0
     
     let hud = JGProgressHUD(style: .dark)
     var envoirment : String = PayPalEnvironmentNoNetwork {
@@ -65,7 +67,8 @@ class BasketViewController: UIViewController {
         
         if MUser.currentUser()!.onBoard{
             //Proceed with purchase
-            payButtonPressed()
+            
+            self.actionSheet()
             
         }else{
             self.hud.textLabel.text = "Please  complete your profile!"
@@ -191,6 +194,27 @@ class BasketViewController: UIViewController {
         }
     }
     
+ // MARK: Action sheet for payment
+    private func actionSheet(){
+        let actionUI = UIAlertController(title: nil, message: "Choose Desired Payment Option", preferredStyle: .actionSheet)
+        actionUI.addAction(.init(title: "Paypal", style: .default, handler: { (action) in
+           
+            self.payButtonPressed()
+        }))
+        
+        actionUI.addAction(UIAlertAction(title: "Pay with card", style: .default, handler: { (action) in
+            
+            let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "cardPayment") as! CardInfoViewController
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }))
+        
+        actionUI.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionUI, animated: true, completion: nil)
+    }
+    
+    
 //    MARK: PayPal with braintree
  private func payButtonPressed() {
         
@@ -248,7 +272,47 @@ class BasketViewController: UIViewController {
     }
     }
     
-
+// MARK: Payment with Stripe
+    
+    func payWithStripe(token : STPToken){
+        
+        self.totalCost = 0
+        
+        for item in allItems {
+            purchasedItemIds.append(item.id)
+            self.totalCost += Int(item.price)
+        }
+        
+        self.totalCost = self.totalCost * 100
+        StripeClient.sharedClient.createAndConfirmThePayment(token, Amount: totalCost) { (error) in
+            
+            if error == nil{
+                self.addItemsToPurchasedHistory(self.purchasedItemIds)
+                self.emptyTheBasket()
+                self.showNotification(text: "Payment successfull", isError: false)
+            }else{
+                self.showNotification(text: "Payment failed", isError: true)
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    private func showNotification(text: String, isError : Bool){
+        
+        if isError {
+        self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+        }else{
+        self.hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        }
+        
+        self.hud.textLabel.text = text
+        self.hud.show(in: self.view)
+        self.hud.dismiss(afterDelay: 2.0)
+    }
+    
+    
+    
+    
     
 }
 
@@ -345,4 +409,15 @@ extension BasketViewController: BTViewControllerPresentingDelegate,BTAppSwitchDe
 
 }
 
+extension BasketViewController : CardInfoViewControllerDelegate {
+    func didClickDone(_ token: STPToken) {
+       payWithStripe(token: token)
+    }
+    
+    func didClickCancel() {
+       showNotification(text: "Payment canceled", isError: true)
+    }
+    
+    
+}
 

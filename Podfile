@@ -20,6 +20,7 @@ target 'Market' do
     	pod 'BraintreeDropIn'
     	pod 'Braintree'
 	pod 'Frames', '~> 3.0'
-	
+	pod 'Stripe'
+	pod 'Alamofire'
 
 end

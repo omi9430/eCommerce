@@ -8,6 +8,14 @@
 
 import Foundation
 
+enum Constants {
+    
+    static let pubclishablekey = "pk_test_DdJwZzh53d57BpT6NJfeg8if"
+    static let baseURLString = "http://localhost:3000"
+    static let defaultCurrency = "usd"
+    static let defaultDescription = "Purchase from Market" 
+}
+
 // Firebase Headers
 public let kUSER_PATH = "User"
 public let kCATEGORY_PATH = "Category"

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		42149FA324936E440031AD33 /* HiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42149FA224936E440031AD33 /* HiveLayout.swift */; };
+		425E5B172525C2E8005878E2 /* StripeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E5B162525C2E8005878E2 /* StripeClient.swift */; };
+		425E5B192529A9C1005878E2 /* CardInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E5B182529A9C1005878E2 /* CardInfoViewController.swift */; };
 		42FBFD00252062D200E7B434 /* PurchasedItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */; };
 		42FBFD042523239300E7B434 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFD032523239300E7B434 /* SearchViewController.swift */; };
 		42FBFD0625233E3100E7B434 /* AlogoliaServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FBFD0525233E3100E7B434 /* AlogoliaServices.swift */; };
@@ -46,6 +48,8 @@
 /* Begin PBXFileReference section */
 		1C574ABE3B5394BBA43AFC35 /* Pods-Market.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Market.debug.xcconfig"; path = "Target Support Files/Pods-Market/Pods-Market.debug.xcconfig"; sourceTree = "<group>"; };
 		42149FA224936E440031AD33 /* HiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiveLayout.swift; sourceTree = "<group>"; };
+		425E5B162525C2E8005878E2 /* StripeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeClient.swift; sourceTree = "<group>"; };
+		425E5B182529A9C1005878E2 /* CardInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfoViewController.swift; sourceTree = "<group>"; };
 		42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItemsTableViewController.swift; sourceTree = "<group>"; };
 		42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Market-Bridging-Header.h"; sourceTree = "<group>"; };
 		42FBFD032523239300E7B434 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				80E6CD11244C96DF00525BFB /* FinishRegistrationViewController.swift */,
 				80E6CD13244D11E200525BFB /* EditProfileViewController.swift */,
 				42FBFCFF252062D200E7B434 /* PurchasedItemsTableViewController.swift */,
+				425E5B182529A9C1005878E2 /* CardInfoViewController.swift */,
 				42FBFD0125207A1300E7B434 /* Market-Bridging-Header.h */,
 				42FBFD032523239300E7B434 /* SearchViewController.swift */,
 			);
@@ -196,6 +201,7 @@
 				80BA2593242E7DEE007380FA /* Basket.swift */,
 				80BA2599243106B5007380FA /* MUser.swift */,
 				42FBFD0525233E3100E7B434 /* AlogoliaServices.swift */,
+				425E5B162525C2E8005878E2 /* StripeClient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				80BA25982430F700007380FA /* LoginViewController.swift in Sources */,
 				808038A3240299BB00D38565 /* ImageCollectionViewCell.swift in Sources */,
 				80FCF4CC2442122D002666AE /* ProfileTableViewController.swift in Sources */,
+				425E5B192529A9C1005878E2 /* CardInfoViewController.swift in Sources */,
 				8080389223F41D9700D38565 /* Item.swift in Sources */,
 				808038A124027C7A00D38565 /* ItemViewController.swift in Sources */,
 				8003CB202407E51D00F7AD3F /* ItemCellView.swift in Sources */,
@@ -352,6 +359,7 @@
 				8080388723E9D82900D38565 /* FireBaseReference.swift in Sources */,
 				42149FA324936E440031AD33 /* HiveLayout.swift in Sources */,
 				8080389823FD315C00D38565 /* Reachability.swift in Sources */,
+				425E5B172525C2E8005878E2 /* StripeClient.swift in Sources */,
 				80E6CD12244C96DF00525BFB /* FinishRegistrationViewController.swift in Sources */,
 				8080386F23E983FA00D38565 /* ViewController.swift in Sources */,
 				80BA2596242FB04D007380FA /* BasketViewController.swift in Sources */,
