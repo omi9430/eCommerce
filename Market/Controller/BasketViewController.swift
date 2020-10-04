@@ -8,6 +8,10 @@
 
 import UIKit
 import JGProgressHUD
+import Braintree
+import BraintreeDropIn
+import Stripe
+
 
 class BasketViewController: UIViewController {
 
@@ -26,29 +30,58 @@ class BasketViewController: UIViewController {
     var basket: Basket?
     var allItems : [Item] = []
     var purchasedItemIds : [String] = []
+    var totalCost = 0
     
     let hud = JGProgressHUD(style: .dark)
+    var envoirment : String = PayPalEnvironmentNoNetwork {
+        willSet (newEnvoirment){
+            if (newEnvoirment != envoirment){
+                PayPalMobile.preconnect(withEnvironment: newEnvoirment)
+            }
+        }
+    }
+   
+    var braintreeClient: BTAPIClient?
     //MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.tableFooterView = footerView
+        braintreeClient = BTAPIClient(authorization: "sandbox_rz35t89r_nnfdkk367hn47vrc")!
+       
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if MUser.currentUser() != nil {
+            loadBasketFromFirebase()
+            updateLabels()
+        }else{
+            self.updateTotalLabels(true)
+        }
         
-        loadBasketFromFirebase()
     }
 
     //MARK: IBAction
     @IBAction func checkOutBtnPressed(_ sender: Any) {
+        
+        if MUser.currentUser()!.onBoard{
+            //Proceed with purchase
+            
+            self.actionSheet()
+            
+        }else{
+            self.hud.textLabel.text = "Please  complete your profile!"
+            self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+            self.hud.show(in: self.view)
+            self.hud.dismiss(afterDelay: 2.0)
+        }
     }
     
     //MARK: Functions
     private func loadBasketFromFirebase(){
         
-        downloadBasketFromFireStore("1234") { (basket) in
+        downloadBasketFromFireStore(MUser.currentID()) { (basket) in
             
             self.basket = basket
             self.getBasketItems()
@@ -94,15 +127,21 @@ class BasketViewController: UIViewController {
             
             self.checkOutBtnView.isEnabled = false
             self.checkOutBtnView.alpha = 0.5
+        }else{
+            self.checkOutBtnView.isEnabled = true
+            self.checkOutBtnView.alpha = 0.0
         }
     }
     
     private func deleteItemFromBasket(_ itemId : String){
         
         for i in 0..<basket!.itemIds.count {
-            
+           
+            print(i)
+            print(basket!.itemIds[i])
             if itemId == basket!.itemIds[i]{
                 basket?.itemIds.remove(at: i)
+                return
             }
         }
     }
@@ -113,7 +152,167 @@ class BasketViewController: UIViewController {
         vc.item = item
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    //MARK: Helper function
+    
+    func updateTotalLabels(_ isEmpty : Bool){
+        
+        if isEmpty {
+            itemsInBasketLabel.text = "0"
+        }else{
+            itemsInBasketLabel.text = "\(allItems.count)"
+        }
+    }
 
+    private func emptyTheBasket(){
+        purchasedItemIds.removeAll()
+        allItems.removeAll()
+        tableView.reloadData()
+        basket!.itemIds = []
+        updateBasketInFireStore(basket!, withValues: [KITEMIDS : basket!.itemIds]) { (error) in
+            
+            if error == nil {
+                self.getBasketItems()
+            }else{
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    private func addItemsToPurchasedHistory(_ itemIds : [String]){
+        
+        if MUser.currentUser() != nil {
+            
+            let newItemIds = MUser.currentUser()!.purchasedItemIds + itemIds
+            
+            updateCurrentUserInFireStore(withValues: [kPURCHASEDITEMIDS : newItemIds]) { (error) in
+                
+                if error != nil {
+                    print("Cannot add items to history ", error?.localizedDescription)
+                }
+            }
+        }
+    }
+    
+ // MARK: Action sheet for payment
+    private func actionSheet(){
+        let actionUI = UIAlertController(title: nil, message: "Choose Desired Payment Option", preferredStyle: .actionSheet)
+        actionUI.addAction(.init(title: "Paypal", style: .default, handler: { (action) in
+           
+            self.payButtonPressed()
+        }))
+        
+        actionUI.addAction(UIAlertAction(title: "Pay with card", style: .default, handler: { (action) in
+            
+            let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "cardPayment") as! CardInfoViewController
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }))
+        
+        actionUI.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionUI, animated: true, completion: nil)
+    }
+    
+    
+//    MARK: PayPal with braintree
+ private func payButtonPressed() {
+        
+       var itemsToBuy :  [BTPayPalLineItem] = []
+        var subTotal = 0.0
+
+        for item in allItems {
+//
+            let tempItem = BTPayPalLineItem(quantity: "1", unitAmount: String(format: "%f", item.price), name: item.name, kind: .debit)
+//            purchasedItemIds.append(item.id)
+            itemsToBuy.append(tempItem)
+//            emptyTheBasket()
+//            updateTotalLabels(true)
+        }
+        
+        for items in allItems {
+            subTotal += items.price
+        }
+
+    // Specify the transaction amount here. "2.32" is used in this example.
+        let request = BTPayPalRequest(amount: String(format: "%f", subTotal))
+        request.currencyCode = "USD" // Optional; see BTPayPalRequest.h for more options
+        request.lineItems = itemsToBuy
+        request.isShippingAddressEditable = true
+        
+        
+        let payPalDriver = BTPayPalDriver(apiClient: braintreeClient!)
+        payPalDriver.viewControllerPresentingDelegate = self
+        payPalDriver.appSwitchDelegate = self
+        payPalDriver.requestOneTimePayment(request) { (tokenizedPayPalAccount, error) in
+        if let tokenizedPayPalAccount = tokenizedPayPalAccount {
+            print("Got a nonce: \(tokenizedPayPalAccount.nonce)")
+
+            // Access additional information
+            let email = tokenizedPayPalAccount.email
+            let firstName = tokenizedPayPalAccount.firstName
+            let lastName = tokenizedPayPalAccount.lastName
+            let phone = tokenizedPayPalAccount.phone
+
+            // See BTPostalAddress.h for details
+            let billingAddress = tokenizedPayPalAccount.billingAddress
+            let shippingAddress = tokenizedPayPalAccount.shippingAddress
+            self.addItemsToPurchasedHistory(self.purchasedItemIds)
+            self.emptyTheBasket()
+            self.fadeBtn()
+            
+        } else if let error = error {
+            // Handle error here...
+            
+            print("I am error at paypal checkout ", error.localizedDescription)
+        }else {
+            // Buyer canceled payment approval
+            self.dismiss(animated: true, completion: nil)
+            }
+    }
+    }
+    
+// MARK: Payment with Stripe
+    
+    func payWithStripe(token : STPToken){
+        
+        self.totalCost = 0
+        
+        for item in allItems {
+            purchasedItemIds.append(item.id)
+            self.totalCost += Int(item.price)
+        }
+        
+        self.totalCost = self.totalCost * 100
+        StripeClient.sharedClient.createAndConfirmThePayment(token, Amount: totalCost) { (error) in
+            
+            if error == nil{
+                self.addItemsToPurchasedHistory(self.purchasedItemIds)
+                self.emptyTheBasket()
+                self.showNotification(text: "Payment successfull", isError: false)
+            }else{
+                self.showNotification(text: "Payment failed", isError: true)
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    private func showNotification(text: String, isError : Bool){
+        
+        if isError {
+        self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+        }else{
+        self.hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        }
+        
+        self.hud.textLabel.text = text
+        self.hud.show(in: self.view)
+        self.hud.dismiss(afterDelay: 2.0)
+    }
+    
+    
+    
+    
     
 }
 
@@ -121,6 +320,10 @@ extension BasketViewController : UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,9 +352,10 @@ extension BasketViewController : UITableViewDelegate,UITableViewDataSource{
             let itemToDelete = allItems[indexPath.row]
             
             allItems.remove(at: indexPath.row)
+            deleteItemFromBasket(itemToDelete.id)
             tableView.reloadData()
             
-            deleteItemFromBasket(itemToDelete.id)
+           
             
             updateBasketInFireStore(basket!, withValues: [KITEMIDS : basket!.itemIds]) { (error) in
             
@@ -164,3 +368,56 @@ extension BasketViewController : UITableViewDelegate,UITableViewDataSource{
         }
     }
 }
+
+extension BasketViewController: BTViewControllerPresentingDelegate,BTAppSwitchDelegate{
+
+    func paymentDriver(_ driver: Any, requestsPresentationOf viewController: UIViewController) {
+        present(viewController, animated: true, completion: nil)
+    }
+
+    func paymentDriver(_ driver: Any, requestsDismissalOf viewController: UIViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    func showLoadingUI() {
+        // ...
+    }
+   @objc func hideLoadingUI() {
+        NotificationCenter
+            .default
+            .removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        // ...
+    }
+    
+
+    // MARK: - BTAppSwitchDelegate
+
+
+    // Optional - display and hide loading indicator UI
+    func appSwitcherWillPerformAppSwitch(_ appSwitcher: Any) {
+        showLoadingUI()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingUI), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    func appSwitcherWillProcessPaymentInfo(_ appSwitcher: Any) {
+        hideLoadingUI()
+    }
+
+    func appSwitcher(_ appSwitcher: Any, didPerformSwitchTo target: BTAppSwitchTarget) {
+
+    }
+
+}
+
+extension BasketViewController : CardInfoViewControllerDelegate {
+    func didClickDone(_ token: STPToken) {
+       payWithStripe(token: token)
+    }
+    
+    func didClickCancel() {
+       showNotification(text: "Payment canceled", isError: true)
+    }
+    
+    
+}
+

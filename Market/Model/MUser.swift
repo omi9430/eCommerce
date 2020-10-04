@@ -34,7 +34,11 @@ class MUser {
     
     init(_dictionary : NSDictionary) {
         
-        objectId = _dictionary[kOBJECTID] as! String
+        if let  objectID = _dictionary[kOBJECTID]{
+            objectId = objectID as! String
+        }else{
+            objectId = MUser.currentID()
+        }
         
         if let mail = _dictionary[kEMAIL]{
             email = mail as! String
@@ -76,7 +80,7 @@ class MUser {
     //MARK: Resturn current user
     
     class func currentID() -> String{
-        return Auth.auth().currentUser!.uid
+        return Auth.auth().currentUser?.uid ?? "no user id"
     }
     
     class func currentUser() -> MUser? {
@@ -100,10 +104,10 @@ class MUser {
                 if authDataResult!.user.isEmailVerified{
                     
                     downloadUserFromFirestore(userId: (authDataResult?.user.uid)!, email: email)
-                    print(email)
+                        print(email)
                     completion(error,true)
                     
-                  //  checkLoginStatus()
+                 
 
                 }else{
                     print("Email is not verified")
@@ -182,6 +186,8 @@ func downloadUserFromFirestore(userId : String, email: String){
         if snapshot.exists {
             print("user is existing in firestore")
             saveUserToUserDefaults(mUserDictionary: snapshot.data() as! NSDictionary)
+            print(snapshot.data() as! NSDictionary)
+            
         }else {
            let user =  MUser(_objectId: userId, _email: email, _firstName: "", _LastName: "")
             saveUserToUserDefaults(mUserDictionary: userDictionary(user: user))
@@ -205,8 +211,11 @@ func saveUserToFirestore(mUser : MUser){
 
 func saveUserToUserDefaults(mUserDictionary : NSDictionary){
     
-    UserDefaults.standard.dictionary(forKey: kCURRENTUSER)
+    UserDefaults.standard.set(mUserDictionary, forKey: kCURRENTUSER)
     UserDefaults.standard.synchronize()
+    print("User is saved in user defaults")
+    print("Current User Dictionary",UserDefaults.standard.value(forKey: kCURRENTUSER) )
+    print("Current User user defaults ID", MUser.currentID())
 }
 
 

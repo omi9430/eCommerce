@@ -5,11 +5,14 @@
 	<key>SchemeUserState</key>
 	<dict>
 		<key>Alamofire.xcscheme</key>
+<<<<<<< HEAD
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
 		<key>BoringSSL-GRPC.xcscheme</key>
+=======
+>>>>>>> dev
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -41,74 +44,145 @@
 			<key>orderHint</key>
 			<integer>37</integer>
 		</dict>
-		<key>CardIO.xcscheme</key>
+		<key>BoringSSL-GRPC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>EmptyDataSet-Swift.xcscheme</key>
+		<key>Braintree-Braintree-Drop-In-Localization.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>Firebase.xcscheme</key>
+		<key>Braintree-Braintree-UI-Localization.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>FirebaseAnalytics.xcscheme</key>
+		<key>Braintree.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>4</integer>
 		</dict>
-		<key>FirebaseAuth.xcscheme</key>
+		<key>BraintreeDropIn-Braintree-UIKit-Localization.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>FirebaseCore.xcscheme</key>
+		<key>BraintreeDropIn.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>CardIO.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
-		<key>FirebaseCoreDiagnostics.xcscheme</key>
+		<key>EmptyDataSet-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>Firebase.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>5</integer>
+=======
+			<integer>10</integer>
+>>>>>>> dev
+		</dict>
+		<key>FirebaseAnalytics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>6</integer>
+=======
+			<integer>11</integer>
+>>>>>>> dev
+		</dict>
+		<key>FirebaseAuth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>7</integer>
+=======
+			<integer>12</integer>
+>>>>>>> dev
+		</dict>
+		<key>FirebaseCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>8</integer>
+=======
+			<integer>13</integer>
+>>>>>>> dev
+		</dict>
+		<key>FirebaseCoreDiagnostics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>9</integer>
+=======
+			<integer>14</integer>
+>>>>>>> dev
+		</dict>
 		<key>FirebaseFirestore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>10</integer>
+=======
+			<integer>15</integer>
+>>>>>>> dev
 		</dict>
 		<key>FirebaseInstallations.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>11</integer>
+=======
+			<integer>16</integer>
+>>>>>>> dev
 		</dict>
 		<key>FirebaseStorage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>12</integer>
 		</dict>
 		<key>Frames-FramesIos.xcscheme</key>
@@ -120,89 +194,151 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>13</integer>
-		</dict>
-		<key>GTMSessionFetcher.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>23</integer>
-		</dict>
-		<key>Gallery.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>15</integer>
-		</dict>
-		<key>GoogleAppMeasurement.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>16</integer>
-		</dict>
-		<key>GoogleDataTransport.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
+=======
 			<integer>17</integer>
 		</dict>
-		<key>GoogleDataTransportCCTSupport.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>18</integer>
-		</dict>
-		<key>GoogleUtilities.xcscheme</key>
+		<key>Frames-FramesIos.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>19</integer>
 		</dict>
+		<key>Frames.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>18</integer>
+>>>>>>> dev
+		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>23</integer>
+=======
+			<integer>28</integer>
+>>>>>>> dev
+		</dict>
+		<key>Gallery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>15</integer>
+=======
+			<integer>20</integer>
+>>>>>>> dev
+		</dict>
+		<key>GoogleAppMeasurement.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>16</integer>
+=======
+			<integer>21</integer>
+>>>>>>> dev
+		</dict>
+		<key>GoogleDataTransport.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>17</integer>
+=======
+			<integer>22</integer>
+>>>>>>> dev
+		</dict>
+		<key>GoogleDataTransportCCTSupport.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>18</integer>
+=======
+			<integer>23</integer>
+>>>>>>> dev
+		</dict>
+		<key>GoogleUtilities.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>19</integer>
+=======
+			<integer>24</integer>
+>>>>>>> dev
+		</dict>
 		<key>InstantSearchClient.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>24</integer>
+=======
+			<integer>29</integer>
+>>>>>>> dev
 		</dict>
 		<key>JGProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>25</integer>
+=======
+			<integer>30</integer>
+>>>>>>> dev
 		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>28</integer>
+=======
+			<integer>33</integer>
+>>>>>>> dev
 		</dict>
 		<key>PayPal-iOS-SDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>29</integer>
+=======
+			<integer>34</integer>
+>>>>>>> dev
 		</dict>
 		<key>Pods-Market.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>30</integer>
+=======
+			<integer>35</integer>
+>>>>>>> dev
 		</dict>
 		<key>PromisesObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>31</integer>
 		</dict>
 		<key>Stripe-Stripe.xcscheme</key>
@@ -214,6 +350,23 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>32</integer>
+=======
+			<integer>36</integer>
+		</dict>
+		<key>Stripe-Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>38</integer>
+		</dict>
+		<key>Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>37</integer>
+>>>>>>> dev
 		</dict>
 		<key>abseil.xcscheme</key>
 		<dict>
@@ -227,35 +380,55 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>21</integer>
+=======
+			<integer>26</integer>
+>>>>>>> dev
 		</dict>
 		<key>gRPC-C++.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>20</integer>
+=======
+			<integer>25</integer>
+>>>>>>> dev
 		</dict>
 		<key>gRPC-Core.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>22</integer>
+=======
+			<integer>27</integer>
+>>>>>>> dev
 		</dict>
 		<key>leveldb-library.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>26</integer>
+=======
+			<integer>31</integer>
+>>>>>>> dev
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>27</integer>
+=======
+			<integer>32</integer>
+>>>>>>> dev
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

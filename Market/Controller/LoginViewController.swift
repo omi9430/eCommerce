@@ -28,13 +28,13 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width/2 - 30, y: self.view.frame.height/2 - 30, width: 60.0, height: 60.0), type: .ballPulse, color: #colorLiteral(red: 0.9998469949, green: 0.4941213727, blue: 0.4734867811, alpha: 1.0), padding: nil)
         resendEmailBtnOutlet.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width/2 - 30, y: self.view.frame.height/2 - 30, width: 60.0, height: 60.0), type: .ballPulse, color: #colorLiteral(red: 0.9998469949, green: 0.4941213727, blue: 0.4734867811, alpha: 1.0), padding: nil)
+//        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width/2 - 30, y: self.view.frame.height/2 - 30, width: 60.0, height: 60.0), type: .ballPulse, color: #colorLiteral(red: 0.9998469949, green: 0.4941213727, blue: 0.4734867811, alpha: 1.0), padding: nil)
     }
     //MARK: IBActions
     @IBAction func cancelBtn(_ sender: Any) {
@@ -83,6 +83,7 @@ class LoginViewController: UIViewController {
     
     private func dissmiss(){
         self.dismiss(animated: true, completion: nil)
+      
     }
     
     private func textFieldsHaveText() -> Bool {
@@ -99,7 +100,7 @@ class LoginViewController: UIViewController {
     private func stopLoadingIndicator() {
         if activityIndicator != nil {
             activityIndicator!.removeFromSuperview()
-            activityIndicator?.startAnimating()
+            activityIndicator?.stopAnimating()
         }
     }
     
@@ -112,7 +113,8 @@ class LoginViewController: UIViewController {
             if error == nil {
                 if isEmailVerified{
                     self.dismissView()
-                    print("User is Verified")
+                    print("Email is Verified")
+    
                 }else {
                     self.hud.textLabel.text = "Please verify your email"
                     self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
@@ -128,9 +130,10 @@ class LoginViewController: UIViewController {
                 self.hud.show(in: self.view)
                 self.hud.dismiss(afterDelay: 2.0)
             }
+            self.stopLoadingIndicator()
+
         }
         
-        stopLoadingIndicator()
     }
     
     private func resetPass(){

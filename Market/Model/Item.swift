@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import InstantSearchClient
 
 
 class Item {
@@ -31,20 +32,20 @@ class Item {
         imageLinks = _dictionary[kIMAGELINK] as? [String]
     }
 }
-    //Mark : Save Data to Firestore
+    //MARK: Save Data to Firestore
     
     func saveItemToFireStore(_ item: Item){
         FireBaseReference(.Items).document(item.id).setData(itemDictionaryFrom(item) as! [String : Any])
     }
     
-    //Mark : Helpers
+    //MARK: Helpers
     
     func itemDictionaryFrom(_ item: Item) -> NSDictionary{
         
         return NSDictionary(objects: [item.categoryId,item.id,item.name,item.description,item.price,item.imageLinks], forKeys: [kCATEGORYID as NSCopying, kOBJECTID as NSCopying,kNAME as NSCopying,kDESCRPTION as NSCopying,kPRICE as NSCopying,kIMAGELINK as NSCopying])
     }
 
-// Mark: Download Items from firebase
+// MARK: Download Items from firebase
 
 func downloadItemsFromFirebase(_ withCategoryId: String, completion: @escaping (_ itemArray : [Item]) -> Void){
     
@@ -100,5 +101,49 @@ func downloadItems(_ withIds : [String], completion: @escaping (_ itemArray: [It
         }
     }else{
         completion(itemArray)
+    }
+}
+
+//MARK: Algolia Funcs
+
+func saveItemToAlgolia(item: Item){
+    
+    let index = AlgoliaService.shared.index
+    let itemToSave = itemDictionaryFrom(item) as! [String : Any]
+    
+    index.addObject(itemToSave, withID: item.id, requestOptions: nil) { (result, error) in
+        
+        if error != nil {
+            print("Cannot save to algolia ",error?.localizedDescription)
+        }else{
+            print("Added to algolia successfully")
+        }
+    }
+}
+
+func searchAlgolia(searchString: String, completion: @escaping(_ itemArray: [String]) -> Void) {
+    
+    let index = AlgoliaService.shared.index
+    var results : [String] = []
+    
+    let query = Query(query: searchString)
+    query.attributesToRetrieve = ["name","description"]
+    
+    index.search(query) { (content, error) in
+        
+        if error == nil {
+            let cont = content!["hits"] as! [[String:Any]]
+            
+            results = []
+            
+            for result in cont {
+                print(cont)
+                results.append(result["objectID"] as! String)
+            }
+            completion(results)
+        }else{
+            print("Algolia search failed")
+            completion(results)
+        }
     }
 }

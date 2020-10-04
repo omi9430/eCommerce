@@ -26,6 +26,7 @@ class ProfileTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("I am user dictionary ", UserDefaults.standard.dictionary(forKey: kCURRENTUSER))
         checkLoginStatus()
         checkOnBoardingStatus()
     }
@@ -46,8 +47,9 @@ class ProfileTableViewController: UITableViewController {
     
     //MARK: Helpers
     func checkLoginStatus(){
-        print("current user", MUser.currentUser()?.email)
         if MUser.currentUser() == nil {
+            print("Under login status current user", MUser.currentID())
+
             createRighBarBtn(title: "Login")
             
         }else{
@@ -71,6 +73,7 @@ class ProfileTableViewController: UITableViewController {
     
     private func goToEditProfile(){
         
+        self.performSegue(withIdentifier: "profileEditing", sender: self)
     }
     
     private func checkOnBoardingStatus() {
@@ -79,6 +82,7 @@ class ProfileTableViewController: UITableViewController {
             if MUser.currentUser()!.onBoard{
                 finishRegistrationOutLet.setTitle("Account is active", for: .normal)
                 finishRegistrationOutLet.isEnabled = false
+                purchaseHistoryBtnOutlet.isEnabled = true
             }else{
                 finishRegistrationOutLet.setTitle("Finish Registration", for: .normal)
                 finishRegistrationOutLet.isEnabled = true

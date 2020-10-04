@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EmptyDataSet_Swift
 
 class ItemsTableViewController: UITableViewController {
     
@@ -19,6 +20,8 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItems()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         self.navigationItem.title = category?.name
         self.view.backgroundColor = UIColor.white
         
@@ -34,11 +37,14 @@ class ItemsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
         
-        
+       // creates shadow behind the cell
         cell.layer.shadowOffset = .zero
         cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 1
-        cell.layer.shadowRadius = 10
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.shadowRadius = 8
+        
+        // Creates rounded corner cell but you must keep the background color cleear
+        cell.contentView.subviews.first?.layer.cornerRadius = 8
         
         cell.backgroundColor = UIColor.clear
        
@@ -82,4 +88,21 @@ class ItemsTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
+}
+
+extension ItemsTableViewController: EmptyDataSetSource,EmptyDataSetDelegate{
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        
+        return NSAttributedString(string: "No items to display")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        return NSAttributedString(string: "Please check back later")
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "emptyData")
+    }
+    
 }
