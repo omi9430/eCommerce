@@ -57,6 +57,7 @@ class FinishRegistrationViewController: UIViewController {
         if nameTextField.text != "" && surNameTextField.text != "" && addressTextField.text != "" {
             doneButtonOutLet.backgroundColor = #colorLiteral(red: 1, green: 0.4250939053, blue: 0.1103114298, alpha: 1)
             doneButtonOutLet.isEnabled = true
+            
         }else{
             doneButtonOutLet.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             doneButtonOutLet.isEnabled = false
